@@ -18,3 +18,21 @@ export const INCOME_CATEGORIES = [
   'Bonus',
   'Other',
 ];
+
+export const ASSET_CATEGORIES = [
+  'Cash & Savings',
+  'Investments',
+  'Real Estate',
+  'Vehicles',
+  'Retirement',
+  'Other',
+];
+
+export const LIABILITY_CATEGORIES = [
+  'Credit Card Debt',
+  'Mortgage',
+  'Student Loan',
+  'Auto Loan',
+  'Personal Loan',
+  'Other',
+];

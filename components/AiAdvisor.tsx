@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Transaction, Message } from '../types';
 import { createAdvisorChat, generateTransactionsContext } from '../services/geminiService';
@@ -26,13 +25,23 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ transactions }) => {
   const initializeChat = useCallback(() => {
     const newChat = createAdvisorChat();
     setChat(newChat);
-    setMessages([
-      {
-        id: 'init',
-        text: 'Hello! I am Finley, your personal AI financial advisor. How can I help you understand your finances today?',
-        sender: 'ai',
-      },
-    ]);
+    if (newChat) {
+      setMessages([
+        {
+          id: 'init',
+          text: 'Hello! I am Finley, your personal AI financial advisor. How can I help you understand your finances today?',
+          sender: 'ai',
+        },
+      ]);
+    } else {
+      setMessages([
+        {
+          id: 'init-error',
+          text: 'The AI Advisor feature is currently unavailable. Please make sure the API key is configured correctly.',
+          sender: 'ai',
+        },
+      ]);
+    }
   }, []);
   
   useEffect(() => {
@@ -88,7 +97,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ transactions }) => {
         <div className="space-y-4">
           {messages.map(msg => (
             <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-lg p-3 rounded-2xl ${msg.sender === 'user' ? 'bg-primary-600 text-white' : 'bg-slate-200 text-slate-800'}`}>
+              <div className={`max-w-lg p-3 rounded-2xl ${msg.sender === 'user' ? 'bg-primary-600 text-white' : 'bg-slate-200 text-slate-800'} ${msg.id === 'init-error' ? 'bg-amber-100 text-amber-800' : ''}`}>
                 {msg.isLoading ? <div className="dot-flashing"></div> : msg.text}
               </div>
             </div>
@@ -103,10 +112,10 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ transactions }) => {
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSend()}
           placeholder="Ask about your spending habits..."
-          className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-          disabled={isLoading}
+          className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-slate-100"
+          disabled={isLoading || !chat}
         />
-        <Button onClick={handleSend} disabled={isLoading}>
+        <Button onClick={handleSend} disabled={isLoading || !chat}>
           {isLoading ? 'Sending...' : 'Send'}
         </Button>
       </div>

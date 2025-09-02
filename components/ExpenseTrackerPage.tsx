@@ -177,7 +177,7 @@ const ExpenseTrackerPage: React.FC<ExpenseTrackerPageProps> = ({ transactions, c
                             <LineChart data={dailyData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                 <XAxis dataKey="date" tickFormatter={(dateStr) => new Date(dateStr).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })} />
-                                <YAxis tickFormatter={(value) => formatCurrency(value as number, currency, { maximumFractionDigits: 0 })} />
+                                <YAxis tickFormatter={(value) => formatCurrency(value as number, currency, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} />
                                 <Tooltip formatter={(value: number) => formatCurrency(value, currency)} />
                                 <Line type="monotone" dataKey="amount" name="Expenses" stroke="#ef4444" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 8 }}/>
                             </LineChart>

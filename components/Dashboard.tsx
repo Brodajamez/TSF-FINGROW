@@ -88,7 +88,7 @@ const Dashboard: React.FC<DashboardProps> = ({ transactions, currency }) => {
             <BarChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" />
-              <YAxis tickFormatter={(value) => formatCurrency(value as number, currency, { maximumFractionDigits: 0 })} />
+              <YAxis tickFormatter={(value) => formatCurrency(value as number, currency, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} />
               <Tooltip formatter={(value: number) => formatCurrency(value, currency)} />
               <Legend />
               <Bar dataKey="income" fill="#22c55e" name="Income" radius={[4, 4, 0, 0]} />

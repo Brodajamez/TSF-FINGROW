@@ -24,6 +24,22 @@ export interface Record {
   date: string; // ISO string format
 }
 
+export interface Asset {
+  id: string;
+  description: string;
+  amount: number;
+  category: string;
+  date: string; // ISO string format
+}
+
+export interface Liability {
+  id: string;
+  description: string;
+  amount: number;
+  category: string;
+  date: string; // ISO string format
+}
+
 export enum View {
   DASHBOARD = 'dashboard',
   TRANSACTIONS = 'transactions',
@@ -31,6 +47,7 @@ export enum View {
   BUDGET = 'budget',
   ADVISOR = 'advisor',
   INVESTMENTS = 'investments',
+  NET_WORTH = 'net_worth',
   RECORDS = 'records',
   SETTINGS = 'settings',
 }
